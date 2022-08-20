@@ -19,7 +19,7 @@ const Home = () => {
             Signin
           </button>
         )}
-        {session.status === "authenticated" && (
+        {session.data?.user?.image && session.status === "authenticated" && (
           <>
             <div className="my-10">{session.data.user?.name}</div>
             <Image
