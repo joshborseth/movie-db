@@ -4,6 +4,11 @@ import Header from "../components/Header";
 
 const Home = () => {
   const session = useSession();
+  if (
+    session.data?.user?.image === null ||
+    session.data?.user?.image === undefined
+  )
+    return;
   return (
     <>
       <header className="h-20 bg-base-300 font-bold text-base-300">
@@ -13,7 +18,7 @@ const Home = () => {
         <h1 className="py-10 text-3xl font-bold">
           Welcome to Next Auth Testing!
         </h1>
-        {session.status === "loading" && <div>loading...</div>}
+        {session.status === "loading" && <div className="loading"></div>}
         {session.status === "unauthenticated" && (
           <button className="btn btn-primary m-10" onClick={() => signIn()}>
             Signin
