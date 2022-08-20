@@ -4,11 +4,6 @@ import Header from "../components/Header";
 
 const Home = () => {
   const session = useSession();
-  if (
-    session.data?.user?.image === null ||
-    session.data?.user?.image === undefined
-  )
-    return;
   return (
     <>
       <header className="h-20 bg-base-300 font-bold text-base-300">
