@@ -37,7 +37,7 @@ const Header: React.FC = () => {
         <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
       </svg>
       {isOpen && (
-        <ul className="absolute top-28 left-0 right-0 flex w-full flex-col bg-secondary text-center md:static md:w-auto md:flex-row">
+        <ul className="absolute top-28 left-0 right-0 z-50 flex w-full flex-col bg-secondary text-center md:static md:w-auto md:flex-row">
           <li className="h-full w-full cursor-pointer p-4 text-center hover:bg-base-100 md:w-auto md:hover:bg-secondary">
             {/* <Link href="/">Home</Link> */}Home
           </li>
