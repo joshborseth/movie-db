@@ -1,3 +1,4 @@
+import { signIn } from "next-auth/react";
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -20,6 +21,9 @@ export const authOptions: NextAuthOptions = {
     }),
     // ...add more providers here
   ],
+  pages: {
+    signIn: "/login",
+  },
 };
 
 export default NextAuth(authOptions);

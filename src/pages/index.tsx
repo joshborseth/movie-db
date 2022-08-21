@@ -1,40 +1,46 @@
-import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import { useState } from "react";
+import { useQuery } from "react-query";
 import Header from "../components/Header";
+import SubHeader from "../components/SubHeader";
 
+const fetchMovies = async (param: string) => {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/movie/${param}?api_key=b474f43311f1a19783cd84ac384af0e8`
+  );
+  return res.json();
+};
 const Home = () => {
-  const session = useSession();
+  const [category, setCategory] = useState("popular");
+  const { data, isLoading, error } = useQuery([category], () =>
+    fetchMovies(category)
+  );
+  console.log(data);
   return (
-    <>
-      <header className="h-20 bg-base-300 font-bold text-base-300">
+    <div className="h-screen w-screen bg-primary">
+      <header>
         <Header />
+        <SubHeader setCategory={(category: string) => setCategory(category)} />
       </header>
-      <main className="p-5 text-center">
-        <h1 className="py-10 text-3xl font-bold">
-          Welcome to Next Auth Testing!
-        </h1>
-        {session.status === "loading" && <div className="loading"></div>}
-        {session.status === "unauthenticated" && (
-          <button className="btn btn-primary m-10" onClick={() => signIn()}>
-            Signin
-          </button>
-        )}
-        {session.data?.user?.image && session.status === "authenticated" && (
-          <>
-            <div className="my-10">{session.data.user?.name}</div>
-            <Image
-              src={session.data.user?.image}
-              alt="user image"
-              width={200}
-              height={200}
-            />
-            <button className="btn btn-error m-10" onClick={() => signOut()}>
-              Signout
-            </button>
-          </>
-        )}
+      <main>
+        <section className="flex items-center justify-center gap-5 text-secondary">
+          {data &&
+            data.results.map((movie: any, index: number) => (
+              <article key={movie.id}>
+                <Image
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt="movie poster"
+                  width={500}
+                  height={751}
+                />
+              </article>
+            ))}
+          {isLoading && (
+            <button className="loading btn btn-square border-none bg-primary"></button>
+          )}
+        </section>
       </main>
-    </>
+    </div>
   );
 };
 
