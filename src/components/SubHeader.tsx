@@ -19,36 +19,36 @@ const SubHeader = (props: subHeaderPropTypes) => {
     return () => window.removeEventListener("resize", updateMedia);
   }, []);
   return (
-    <nav className="flex flex-col items-center justify-center bg-accent font-bold text-secondary">
+    <nav className="relative flex h-20 flex-col items-center justify-center bg-accent font-bold text-secondary">
       <div
-        className="h-full w-full cursor-pointer py-5 text-center md:hidden"
+        className="flex h-full w-full cursor-pointer items-center justify-center text-center md:hidden"
         onClick={() => setIsOpen(!isOpen)}
       >
         Categories
       </div>
       {isOpen && (
-        <ul className="flex h-full w-full flex-col items-center justify-center md:flex-row">
+        <ul className="absolute top-20 z-50 flex h-56 w-full flex-col items-center justify-center bg-accent md:static md:flex-row">
           <li
             onClick={() => props.setCategory("top_rated")}
-            className="h-full w-full cursor-pointer p-2 text-center hover:bg-neutral md:w-auto md:p-5"
+            className="flex h-full w-full cursor-pointer items-center justify-center p-2 text-center hover:bg-neutral md:w-auto md:p-5"
           >
             Top Rated
           </li>
           <li
             onClick={() => props.setCategory("popular")}
-            className="h-full w-full cursor-pointer p-2 text-center hover:bg-neutral md:w-auto md:p-5"
+            className="flex h-full w-full cursor-pointer items-center justify-center p-2 text-center hover:bg-neutral md:w-auto md:p-5"
           >
             Popular
           </li>
           <li
             onClick={() => props.setCategory("now_playing")}
-            className="h-full w-full cursor-pointer p-2 text-center hover:bg-neutral md:w-auto md:p-5"
+            className="flex h-full w-full cursor-pointer items-center justify-center p-2 text-center hover:bg-neutral md:w-auto md:p-5"
           >
             Now Playing
           </li>
           <li
             onClick={() => props.setCategory("upcoming")}
-            className="h-full w-full cursor-pointer p-2 text-center hover:bg-neutral md:w-auto md:p-5"
+            className="flex h-full w-full cursor-pointer items-center justify-center p-2 text-center hover:bg-neutral md:w-auto md:p-5"
           >
             Upcoming
           </li>
