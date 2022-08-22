@@ -1,4 +1,4 @@
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
@@ -50,14 +50,22 @@ const Header: React.FC = () => {
         </button>
       )}
       {status === "authenticated" && session.user?.image && (
-        <div className="ml-auto mr-10 flex cursor-pointer items-center justify-center gap-5">
-          <Image
-            src={session.user?.image}
-            alt="user image"
-            width={75}
-            height={75}
-            className="rounded-full"
-          />
+        <div
+          className="dropdown dropdown-hover ml-auto mr-10 flex items-center justify-center gap-5"
+          onClick={() => signOut()}
+        >
+          <label tabIndex={0}>
+            <Image
+              src={session.user?.image}
+              alt="user image"
+              width={75}
+              height={75}
+              className="cursor-pointer rounded-full"
+            />
+          </label>
+          <ul tabIndex={0} className="btn dropdown-content btn-secondary mt-28">
+            <li>Signout</li>
+          </ul>
         </div>
       )}
 
