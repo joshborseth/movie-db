@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import Image from "next/image";
+import Heart from "./Heart";
 
 const fetchMovies = async (param: string) => {
   const res = await fetch(
@@ -17,6 +18,7 @@ type sliderProps = {
 const Slider = (props: sliderProps) => {
   const [width, setWidth] = useState<number>(0);
   const carousel = useRef<HTMLDivElement>(null);
+  const [isLiked, setIsLiked] = useState(false);
   useEffect(() => {
     if (!carousel.current) return;
     setWidth(carousel.current.scrollWidth - window.innerWidth / 1.1);
@@ -38,17 +40,14 @@ const Slider = (props: sliderProps) => {
           {data &&
             data.results.map((movie: any, index: number) => (
               <motion.div className="relative mx-3" key={movie.id}>
-                <div className="absolute z-40 h-full w-full bg-black p-3 text-secondary opacity-0 transition-opacity hover:opacity-70">
+                <div className="absolute z-20 h-full w-full bg-black bg-opacity-0 p-3 text-secondary opacity-0 transition-all hover:bg-opacity-75 hover:opacity-100">
                   <h3 className="text-md my-2 font-bold">{movie.title}</h3>
                   <h4 className="my-1 text-sm">({movie.release_date})</h4>
                   <p className="text-xs">{movie.overview.slice(0, 100)}...</p>
                 </div>
-                <Image
-                  src={"/heart.svg"}
-                  alt="like icon"
-                  height={50}
-                  width={50}
-                />
+                <div className="absolute -top-5 -right-5 z-30">
+                  <Heart />
+                </div>
                 <Image
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   alt="movie poster"
@@ -60,7 +59,7 @@ const Slider = (props: sliderProps) => {
                   className="h-full w-full"
                   draggable="false"
                 />
-                <button className="btn btn-accent absolute bottom-0 left-0 right-0 z-50 h-10 w-full rounded-none">
+                <button className="absolute bottom-0 left-0 right-0 z-50 h-10 w-full rounded-none bg-accent text-secondary transition-colors hover:bg-neutral">
                   See More
                 </button>
               </motion.div>

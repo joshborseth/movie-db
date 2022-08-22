@@ -1,19 +1,28 @@
 import { getProviders, signIn } from "next-auth/react";
+import Header from "../components/Header";
 
 const login = ({ providers }: any) => {
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-start">
-      <h1 className="m-20 text-4xl">Login</h1>
-      {Object.values(providers).map((provider: any) => (
-        <div key={provider.id} className="w-1/2 bg-neutral text-center">
-          <button
-            className="btn btn-primary h-full w-full text-base-content"
-            onClick={() => signIn(provider.id, { callbackUrl: "/" })}
+    <div className="h-full w-full bg-primary">
+      <header>
+        <Header />
+      </header>
+      <main className="flex h-1/2 flex-col items-center justify-center gap-10">
+        <h1 className="text-center text-5xl text-secondary">Login</h1>
+        {Object.values(providers).map((provider: any) => (
+          <div
+            key={provider.id}
+            className="mx-auto w-1/2 bg-neutral text-center"
           >
-            Login with {provider.name}
-          </button>
-        </div>
-      ))}
+            <button
+              className="btn btn-accent h-full w-full"
+              onClick={() => signIn(provider.id, { callbackUrl: "/" })}
+            >
+              Login with {provider.name}
+            </button>
+          </div>
+        ))}
+      </main>
     </div>
   );
 };
