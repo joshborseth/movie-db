@@ -26,17 +26,29 @@ const Slider = (props: sliderProps) => {
   );
   return (
     <>
-      <motion.section className="mx-auto w-[500rem] md:px-20">
+      <motion.section className="mx-auto w-[500rem] pb-10 md:px-20">
         <motion.div
-          className="flex w-3/4 cursor-grab"
+          className="flex w-1/2 cursor-grab"
           drag="x"
           dragConstraints={{ right: 0, left: -width }}
+          whileDrag={{ scale: 1.1 }}
           ref={carousel}
           whileTap={{ cursor: "grabbing" }}
         >
           {data &&
             data.results.map((movie: any, index: number) => (
-              <motion.div className="mx-3" key={movie.id}>
+              <motion.div className="relative mx-3" key={movie.id}>
+                <div className="absolute z-40 h-full w-full bg-black p-3 text-secondary opacity-0 transition-opacity hover:opacity-70">
+                  <h3 className="text-md my-2 font-bold">{movie.title}</h3>
+                  <h4 className="my-1 text-sm">({movie.release_date})</h4>
+                  <p className="text-xs">{movie.overview.slice(0, 100)}...</p>
+                </div>
+                <Image
+                  src={"/heart.svg"}
+                  alt="like icon"
+                  height={50}
+                  width={50}
+                />
                 <Image
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   alt="movie poster"
@@ -45,9 +57,12 @@ const Slider = (props: sliderProps) => {
                   quality={50}
                   placeholder="blur"
                   blurDataURL="/white.png"
-                  className="h-full w-full rounded-xl"
+                  className="h-full w-full"
                   draggable="false"
                 />
+                <button className="btn btn-accent absolute bottom-0 left-0 right-0 z-50 h-10 w-full rounded-none">
+                  See More
+                </button>
               </motion.div>
             ))}
         </motion.div>

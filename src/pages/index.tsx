@@ -6,7 +6,7 @@ import SubHeader from "../components/SubHeader";
 const Home = () => {
   const [category, setCategory] = useState("popular");
   return (
-    <div className="h-screen w-screen overflow-hidden bg-primary">
+    <div className="h-full w-full overflow-x-hidden bg-primary">
       <header>
         <Header />
         <SubHeader setCategory={(category: string) => setCategory(category)} />
