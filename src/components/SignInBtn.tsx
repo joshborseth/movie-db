@@ -6,10 +6,10 @@ const SignInBtn = () => {
   const { data: session, status } = useSession();
 
   return (
-    <div className="mx-auto text-center">
+    <div className="inline-block text-center">
       {status !== "authenticated" && (
         <button
-          className="btn btn-primary w-80 border-secondary"
+          className="btn btn-primary border-secondary"
           onClick={() => signIn()}
         >
           Sign In

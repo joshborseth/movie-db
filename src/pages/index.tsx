@@ -12,12 +12,12 @@ const Home = () => {
         <SubHeader setCategory={(category: string) => setCategory(category)} />
       </header>
       <main>
-        <h1 className="my-12 text-center text-5xl font-bold capitalize text-secondary">
+        <h1 className="my-8 text-center text-5xl font-bold capitalize text-secondary">
           {category.includes("_") ? category.replace("_", " ") : category}
         </h1>
         <Slider category={category} />
       </main>
-      <footer>
+      <footer className="flex items-center justify-center bg-primary pb-20">
         <SignInBtn />
       </footer>
     </div>

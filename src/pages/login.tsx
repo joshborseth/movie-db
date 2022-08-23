@@ -3,7 +3,7 @@ import Header from "../components/Header";
 
 const login = ({ providers }: any) => {
   return (
-    <div className="h-full w-full bg-primary">
+    <div className="h-screen w-screen bg-primary">
       <header>
         <Header />
       </header>

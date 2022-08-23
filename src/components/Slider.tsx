@@ -49,10 +49,14 @@ const Slider = (props: sliderProps) => {
             >
               <div className="relative w-3/4">
                 <div className="absolute z-20 h-full w-full bg-black bg-opacity-0 p-3 text-secondary opacity-0 transition-all hover:bg-opacity-75 hover:opacity-100">
-                  <h3 className="text-md my-1 font-bold">{movie.title}</h3>
+                  <h3 className="text-md my-1 font-bold">
+                    {movie.title.length > 20
+                      ? movie.title.slice(0, 20) + "..."
+                      : movie.title}
+                  </h3>
                   <h4 className="my-1 text-sm">({movie.release_date})</h4>
                   <p className="text-2xs md:text-xs">
-                    {movie.overview.slice(0, 75)}...
+                    {movie.overview.slice(0, 50)}...
                   </p>
                 </div>
                 <Heart />

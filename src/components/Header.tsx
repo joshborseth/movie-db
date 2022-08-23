@@ -1,7 +1,5 @@
-import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
