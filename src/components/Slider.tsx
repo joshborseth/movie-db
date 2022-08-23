@@ -1,53 +1,61 @@
-import { motion } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 import { useQuery } from "react-query";
-import Image from "next/image";
 import Heart from "./Heart";
-
-const fetchMovies = async (param: string) => {
+import Image from "next/image";
+import { useEffect, useState } from "react";
+type sliderProps = {
+  category: string;
+};
+export const fetchMovies = async (param: string) => {
   const res = await fetch(
     `https://api.themoviedb.org/3/movie/${param}?api_key=b474f43311f1a19783cd84ac384af0e8`
   );
   return res.json();
 };
-
-type sliderProps = {
-  category: string;
-};
-
 const Slider = (props: sliderProps) => {
-  const [width, setWidth] = useState<number>(0);
-  const carousel = useRef<HTMLDivElement>(null);
-  const [isLiked, setIsLiked] = useState(false);
-  useEffect(() => {
-    if (!carousel.current) return;
-    setWidth(carousel.current.scrollWidth - window.innerWidth / 1.1);
-  }, []);
   const { data, isLoading, error } = useQuery([props.category], () =>
     fetchMovies(props.category)
   );
+  const [slideCount, setSlideCount] = useState<number>(0);
+  useEffect(() => {
+    const updateMedia = () => {
+      setSlideCount(1);
+      if (window.innerWidth >= 500) {
+        setSlideCount(2);
+      }
+      if (window.innerWidth >= 900) {
+        setSlideCount(3);
+      }
+      if (window.innerWidth >= 1400) {
+        setSlideCount(4);
+      }
+      if (window.innerWidth >= 1600) {
+        setSlideCount(5);
+      }
+    };
+    window.addEventListener("resize", updateMedia);
+    updateMedia();
+    return () => window.removeEventListener("resize", updateMedia);
+  }, []);
   return (
-    <>
-      <motion.section className="mx-auto w-[500rem] pb-10 md:px-20">
-        <motion.div
-          className="flex w-1/2 cursor-grab"
-          drag="x"
-          dragConstraints={{ right: 0, left: -width }}
-          whileDrag={{ scale: 1.1 }}
-          ref={carousel}
-          whileTap={{ cursor: "grabbing" }}
-        >
-          {data &&
-            data.results.map((movie: any, index: number) => (
-              <motion.div className="relative mx-3" key={movie.id}>
+    <div className="mx-auto bg-primary p-5">
+      <Swiper spaceBetween={0} slidesPerView={slideCount} loop={true}>
+        {data &&
+          data.results.map((movie: any, index: number) => (
+            <SwiperSlide
+              key={movie.id}
+              className="flex items-center justify-center p-5"
+            >
+              <div className="relative w-3/4">
                 <div className="absolute z-20 h-full w-full bg-black bg-opacity-0 p-3 text-secondary opacity-0 transition-all hover:bg-opacity-75 hover:opacity-100">
-                  <h3 className="text-md my-2 font-bold">{movie.title}</h3>
+                  <h3 className="text-md my-1 font-bold">{movie.title}</h3>
                   <h4 className="my-1 text-sm">({movie.release_date})</h4>
-                  <p className="text-xs">{movie.overview.slice(0, 100)}...</p>
+                  <p className="text-2xs md:text-xs">
+                    {movie.overview.slice(0, 75)}...
+                  </p>
                 </div>
-                <div className="absolute -top-5 -right-5 z-30">
-                  <Heart />
-                </div>
+                <Heart />
                 <Image
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   alt="movie poster"
@@ -62,17 +70,11 @@ const Slider = (props: sliderProps) => {
                 <button className="absolute bottom-0 left-0 right-0 z-50 h-10 w-full rounded-none bg-accent text-secondary transition-colors hover:bg-neutral">
                   See More
                 </button>
-              </motion.div>
-            ))}
-        </motion.div>
-      </motion.section>
-      {isLoading && (
-        <div className="flex items-center justify-center">
-          <Image src="/rings.svg" alt="loading icon" width={200} height={200} />
-        </div>
-      )}
-    </>
+              </div>
+            </SwiperSlide>
+          ))}
+      </Swiper>
+    </div>
   );
 };
-
 export default Slider;

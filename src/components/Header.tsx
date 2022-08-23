@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { data: session, status } = useSession();
   useEffect(() => {
     const updateMedia = () => {
       if (window.innerWidth >= 768) {
@@ -40,33 +39,6 @@ const Header: React.FC = () => {
             {/* <Link href="/favourites">Favourites</Link> */}Favourites
           </li>
         </ul>
-      )}
-      {status !== "authenticated" && (
-        <button
-          className="btn btn-primary ml-auto mr-10 text-secondary"
-          onClick={() => signIn()}
-        >
-          Signin
-        </button>
-      )}
-      {status === "authenticated" && session.user?.image && (
-        <div
-          className="dropdown dropdown-hover ml-auto mr-10 flex items-center justify-center gap-5"
-          onClick={() => signOut()}
-        >
-          <label tabIndex={0}>
-            <Image
-              src={session.user?.image}
-              alt="user image"
-              width={75}
-              height={75}
-              className="cursor-pointer rounded-full"
-            />
-          </label>
-          <ul tabIndex={0} className="btn dropdown-content btn-secondary mt-28">
-            <li>Signout</li>
-          </ul>
-        </div>
       )}
 
       <svg
