@@ -15,8 +15,12 @@ export const authRouter = createRouter()
     }
     return next();
   })
-  .query("getSecretMessage", {
+  .query("getUserLikedMovies", {
     async resolve({ ctx }) {
-      return "You are logged in and can see this secret message!";
+      return await ctx.prisma.movie.findMany({
+        where: {
+          likerId: ctx.session?.user?.id,
+        },
+      });
     },
   });

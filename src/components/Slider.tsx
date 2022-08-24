@@ -40,15 +40,20 @@ const Slider = (props: sliderProps) => {
   }, []);
   return (
     <div className="mx-auto bg-primary p-5">
-      <Swiper spaceBetween={0} slidesPerView={slideCount} loop={true}>
+      <Swiper
+        spaceBetween={0}
+        slidesPerView={slideCount}
+        loop={true}
+        className="w-2/3"
+      >
         {data &&
           data.results.map((movie: any, index: number) => (
             <SwiperSlide
               key={movie.id}
               className="flex items-center justify-center p-5"
             >
-              <div className="relative w-3/4">
-                <div className="absolute z-20 h-full w-full bg-black bg-opacity-0 p-3 text-secondary opacity-0 transition-all hover:bg-opacity-75 hover:opacity-100">
+              <div className="relative flex w-auto items-center justify-center">
+                <div className="absolute left-0 right-0 top-0 bottom-0 z-20 h-full w-full bg-black bg-opacity-0 p-3 text-secondary opacity-0 transition-all hover:bg-opacity-75 hover:opacity-100">
                   <h3 className="text-md my-1 font-bold">
                     {movie.title.length > 20
                       ? movie.title.slice(0, 20) + "..."
@@ -56,27 +61,44 @@ const Slider = (props: sliderProps) => {
                   </h3>
                   <h4 className="my-1 text-sm">({movie.release_date})</h4>
                   <p className="text-2xs md:text-xs">
-                    {movie.overview.slice(0, 50)}...
+                    {movie.overview.slice(0, 100)}...
                   </p>
                 </div>
                 <Heart />
-                <Image
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  alt="movie poster"
-                  width={500}
-                  height={751}
-                  quality={50}
-                  placeholder="blur"
-                  blurDataURL="/white.png"
-                  className="h-full w-full"
-                  draggable="false"
-                />
+                <div className="flex w-full items-center justify-center">
+                  <Image
+                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    alt="movie poster"
+                    width={500}
+                    height={751}
+                    quality={50}
+                    placeholder="blur"
+                    blurDataURL="/white.png"
+                    className="h-full w-full"
+                    draggable="false"
+                  />
+                </div>
                 <button className="absolute bottom-0 left-0 right-0 z-50 h-10 w-full rounded-none bg-accent text-secondary transition-colors hover:bg-neutral">
                   See More
                 </button>
               </div>
             </SwiperSlide>
           ))}
+        {isLoading && (
+          <div className="flex items-center justify-center">
+            <Image
+              src="/rings.svg"
+              alt="loading icon"
+              width={200}
+              height={200}
+            />
+          </div>
+        )}
+        {error && (
+          <div className="flex items-center justify-center text-secondary">
+            <p>An error has occured while fetching movies.</p>
+          </div>
+        )}
       </Swiper>
     </div>
   );

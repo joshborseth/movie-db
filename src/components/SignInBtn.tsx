@@ -1,13 +1,13 @@
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
+import { trpc } from "../utils/trpc";
 
 const SignInBtn = () => {
-  const { data: session, status } = useSession();
-
+  const session = trpc.useQuery(["auth.getSession"]);
   return (
     <div className="inline-block text-center">
-      {status !== "authenticated" && (
+      {!session.data && (
         <button
           className="btn btn-primary border-secondary"
           onClick={() => signIn()}
@@ -15,14 +15,14 @@ const SignInBtn = () => {
           Sign In
         </button>
       )}
-      {status === "authenticated" && session.user?.image && (
+      {session.data?.user?.image && (
         <div
           className="dropdown-hover dropdown flex items-center justify-center gap-5"
           onClick={() => signOut()}
         >
           <label tabIndex={0}>
             <Image
-              src={session.user?.image}
+              src={session.data.user?.image}
               alt="user image"
               width={75}
               height={75}
