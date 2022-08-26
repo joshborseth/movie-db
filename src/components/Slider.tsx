@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import Heart from "./Heart";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 type sliderProps = {
   category: string;
 };
@@ -21,7 +22,7 @@ const Slider = (props: sliderProps) => {
   useEffect(() => {
     const updateMedia = () => {
       setSlideCount(1);
-      if (window.innerWidth >= 500) {
+      if (window.innerWidth >= 600) {
         setSlideCount(2);
       }
       if (window.innerWidth >= 900) {
@@ -79,7 +80,9 @@ const Slider = (props: sliderProps) => {
                   />
                 </div>
                 <button className="absolute bottom-0 left-0 right-0 z-50 h-10 w-full rounded-none bg-accent text-secondary transition-colors hover:bg-neutral">
-                  See More
+                  <Link href={`/movie/${movie.id}`}>
+                    <a>See More</a>
+                  </Link>
                 </button>
               </div>
             </SwiperSlide>
