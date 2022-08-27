@@ -15,11 +15,14 @@ export const fetchMovies = async (param: string) => {
 };
 const Slider = (props: sliderProps) => {
   const { data, isLoading, error } = useQuery([props.category], () => fetchMovies(props.category));
-  const favourites = trpc.useQuery(["auth.getUserLikedMovies"]);
-  const likedMovies = favourites.data?.map((movie) => movie.id);
   const [slideCount, setSlideCount] = useState<number>(0);
   const session = trpc.useQuery(["auth.getSession"]);
   const likerId = session.data?.user?.id;
+  const favourites = trpc.useQuery(["auth.getUserLikedMovies"], {
+    enabled: !!likerId,
+  });
+  const likedMovies = favourites.data?.map((movie) => movie.id);
+
   useEffect(() => {
     const updateMedia = () => {
       setSlideCount(1);
