@@ -7,10 +7,11 @@ type heartProps = {
   year: string;
   overview: string;
   likerId: string;
+  isLiked: boolean;
 };
 
 const Heart = (props: heartProps) => {
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(props.isLiked);
   const likeMovie = trpc.useMutation(["auth.createLikedMovie"]);
   const unLikeMovie = trpc.useMutation(["auth.deleteLikedMovie"]);
   const createLikedMovie = async () => {

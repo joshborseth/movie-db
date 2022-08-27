@@ -15,6 +15,8 @@ export const fetchMovies = async (param: string) => {
 };
 const Slider = (props: sliderProps) => {
   const { data, isLoading, error } = useQuery([props.category], () => fetchMovies(props.category));
+  const favourites = trpc.useQuery(["auth.getUserLikedMovies"]);
+  const likedMovies = favourites.data?.map((movie) => movie.id);
   const [slideCount, setSlideCount] = useState<number>(0);
   const session = trpc.useQuery(["auth.getSession"]);
   const likerId = session.data?.user?.id;
@@ -58,6 +60,7 @@ const Slider = (props: sliderProps) => {
                     year={movie.release_date}
                     overview={movie.overview}
                     likerId={likerId}
+                    isLiked={likedMovies?.includes(movie.id) ? true : false}
                   />
                 )}
                 <div className="flex w-full items-center justify-center">
