@@ -18,6 +18,7 @@ const Favourites = () => {
         <h1 className="py-20 text-center text-5xl font-bold">Favourites</h1>
         <div className="mx-auto grid w-2/3 grid-cols-1 place-items-start gap-20 lg:grid-cols-2 xl:grid-cols-3">
           {data &&
+            data.length > 0 &&
             data.map((movie) => (
               <div className="flex flex-col items-center justify-center gap-5 pb-20 text-center" key={movie.id}>
                 <h2 className="text-2xl">{movie.title}</h2>
@@ -34,7 +35,15 @@ const Favourites = () => {
                     className="h-full w-full"
                     draggable="false"
                   />
-                  <Heart />
+                  <Heart
+                    id={movie.id}
+                    title={movie.title ? movie.title : "No title available for this movie."}
+                    posterPath={movie.posterPath ? movie.posterPath : "/white.png"}
+                    year={movie.year ? movie.year : "No release date available for this movie"}
+                    overview={movie.overview ? movie.overview : "No overview available for this movie"}
+                    likerId={likerId ? likerId : ""}
+                    isLiked={likedMovies?.includes(movie.id) ? true : false}
+                  />
                 </div>
                 <Link href={`/movie/${movie.id}`}>
                   <a className="btn btn-accent">See More</a>
@@ -42,6 +51,7 @@ const Favourites = () => {
                 <p>{movie.overview}</p>
               </div>
             ))}
+          {data && data.length === 0 && <p className="col-span-3 mx-auto text-center">Go click the heart on some movies to see your favourites!</p>}
         </div>
       </main>
     </div>
