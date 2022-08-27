@@ -12,9 +12,17 @@ type heartProps = {
 const Heart = (props: heartProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const likeMovie = trpc.useMutation(["auth.createLikedMovie"]);
+  const unLikeMovie = trpc.useMutation(["auth.deleteLikedMovie"]);
   const createLikedMovie = async () => {
     likeMovie.mutate(props);
     setIsLiked(true);
+  };
+  const deleteLikedMovie = async (id: number, likerId: string) => {
+    unLikeMovie.mutate({
+      id: id,
+      likerId: likerId,
+    });
+    setIsLiked(false);
   };
   return (
     <div className="absolute -top-5 -right-5 z-30">
@@ -39,7 +47,7 @@ const Heart = (props: heartProps) => {
           height="50"
           viewBox="0 0 24 24"
           className="cursor-pointer fill-secondary"
-          onClick={() => setIsLiked(false)}
+          onClick={() => deleteLikedMovie(props.id, props.likerId)}
         >
           <path d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z" />
         </svg>

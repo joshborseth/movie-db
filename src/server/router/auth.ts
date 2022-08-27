@@ -1,5 +1,6 @@
+import { createLikedMovieSchema } from "./../../schema/movie.schema";
 import { TRPCError } from "@trpc/server";
-import { createLikedMovieSchema } from "../../schema/movie.schema";
+import { z } from "zod";
 import { createRouter } from "./context";
 
 export const authRouter = createRouter()
@@ -34,5 +35,22 @@ export const authRouter = createRouter()
         },
       });
       return movie;
+    },
+  })
+  .mutation("deleteLikedMovie", {
+    input: z.object({
+      likerId: z.string(),
+      id: z.number(),
+    }),
+    async resolve({ ctx, input }) {
+      const deleteMovie = await ctx.prisma.movie.delete({
+        where: {
+          idToDelete: {
+            likerId: input.likerId,
+            id: input.id,
+          },
+        },
+      });
+      return deleteMovie;
     },
   });
