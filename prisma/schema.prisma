@@ -51,9 +51,9 @@ model User {
 }
 
 model Movie {
-  likerId     String @unique
-  user       User   @relation(fields: [likerId], references: [id])
-  id         String @id @default(cuid())
+  likerId    String  @unique
+  user       User    @relation(fields: [likerId], references: [id])
+  id         Int     @id
   posterPath String?
   overview   String?
   year       String?

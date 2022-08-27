@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { trpc } from "../utils/trpc";
 type heartProps = {
-  id: string;
+  id: number;
   title: string;
   posterPath: string;
   year: string;
