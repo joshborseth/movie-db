@@ -9,6 +9,7 @@ type heartProps = {
   overview: string;
   likerId: string;
   isLiked: boolean;
+  rating: number;
 };
 
 const Heart = (props: heartProps) => {

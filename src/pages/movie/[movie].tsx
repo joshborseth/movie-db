@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "../../components/Header";
 import Heart from "../../components/Heart";
 import { fetchMovies } from "../../components/Slider";
+import { trpc } from "../../utils/trpc";
 
 export async function getServerSideProps(context: any) {
   const movie = await fetchMovies(context.params.movie);
@@ -11,7 +12,12 @@ export async function getServerSideProps(context: any) {
   };
 }
 const Movie = (props: any) => {
-  console.log(props);
+  const session = trpc.useQuery(["auth.getSession"]);
+  const likerId = session.data?.user?.id;
+  const favourites = trpc.useQuery(["auth.getUserLikedMovies"], {
+    enabled: !!likerId,
+  });
+  const likedMovies = favourites.data?.map((movie: any) => movie.id);
   return (
     <div className="bg-primary text-secondary">
       <header>
@@ -22,14 +28,19 @@ const Movie = (props: any) => {
         <h2 className="text-xl">({props.release_date})</h2>
         <div className="flex flex-col items-center px-5 md:flex-row-reverse md:items-start md:justify-center">
           <div className="relative mt-8 w-1/2 select-none md:w-1/3">
-            <Heart
-              isLiked={props.isLiked}
-              id={props.id}
-              title={props.title}
-              posterPath={props.poster_path}
-              year={props.release_date}
-              overview={props.overview}
-            />
+            {likerId && (
+              <Heart
+                likerId={likerId}
+                id={props.id}
+                title={props.title}
+                posterPath={props.poster_path}
+                year={props.release_date}
+                overview={props.overview}
+                isLiked={likedMovies?.includes(props.id) ? true : false}
+                rating={props.vote_average}
+              />
+            )}
+
             <Image
               src={`https://image.tmdb.org/t/p/w500${props.poster_path}`}
               alt="movie poster"

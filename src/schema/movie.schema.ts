@@ -7,4 +7,5 @@ export const createLikedMovieSchema = z.object({
   overview: z.string(),
   year: z.string(),
   title: z.string(),
+  rating: z.number(),
 });

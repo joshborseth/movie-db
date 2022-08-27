@@ -1,3 +1,4 @@
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "../components/Header";
@@ -6,9 +7,11 @@ import { trpc } from "../utils/trpc";
 
 const Favourites = () => {
   const session = trpc.useQuery(["auth.getSession"]);
-  const { data } = trpc.useQuery(["auth.getUserLikedMovies"]);
-  const likedMovies = data?.map((movie) => movie.id);
   const likerId = session.data?.user?.id;
+  const { data } = trpc.useQuery(["auth.getUserLikedMovies"], {
+    enabled: !!likerId,
+  });
+  const likedMovies = data?.map((movie) => movie.id);
   return (
     <div className="h-full w-full bg-primary text-secondary">
       <header>
@@ -44,13 +47,18 @@ const Favourites = () => {
                       overview={movie.overview}
                       likerId={likerId}
                       isLiked={likedMovies?.includes(movie.id) ? true : false}
+                      rating={movie.rating}
                     />
                   )}
                 </div>
                 <Link href={`/movie/${movie.id}`}>
                   <a className="btn btn-accent">See More</a>
                 </Link>
-                <p>{movie.overview}</p>
+                <p>{movie.overview}</p>{" "}
+                <div className="flex items-center justify-center gap-10">
+                  <h2 className="font-bold">Rating:</h2>
+                  <span className="flex h-20 w-20 items-center justify-center rounded-full bg-accent font-bold">{Math.floor(movie.rating)}/10</span>
+                </div>
               </div>
             ))}
           {data && data.length === 0 && (
@@ -59,6 +67,14 @@ const Favourites = () => {
               <Link href="/">
                 <a className="btn btn-accent col-span-3 mx-auto text-center">Browse Movies</a>
               </Link>
+            </>
+          )}
+          {!likerId && (
+            <>
+              <p className="col-span-3 mx-auto text-center">Please Sign In to view your favourites!</p>
+              <button onClick={() => signIn()} className="btn btn-accent col-span-3 mx-auto text-center">
+                Sign In
+              </button>
             </>
           )}
         </div>
