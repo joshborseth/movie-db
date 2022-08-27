@@ -54,10 +54,10 @@ model Movie {
   likerId    String
   user       User    @relation(fields: [likerId], references: [id])
   id         Int
-  posterPath String?
-  overview   String? @db.VarChar(1000)
-  year       String?
-  title      String?
+  posterPath String
+  overview   String @db.VarChar(1000)
+  year       String
+  title      String
   idOfLike    String @id @default(cuid())
   @@unique(fields: [likerId, id], name: "idToDelete")
 }

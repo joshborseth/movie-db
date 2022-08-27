@@ -18,12 +18,13 @@ const Movie = (props: any) => {
         <Header />
       </header>
       <main className="flex flex-col items-center justify-center gap-2 px-5 py-10">
-        <h1 className="text-center text-4xl font-bold">{props.title}</h1>
+        <h1 className="text-center text-5xl font-bold">{props.title}</h1>
         <h2 className="text-xl">({props.release_date})</h2>
         <div className="flex flex-col items-center px-5 md:flex-row-reverse md:items-start md:justify-center">
           <div className="relative mt-8 w-1/2 select-none md:w-1/3">
             <Heart
-              movieId={props.id}
+              isLiked={props.isLiked}
+              id={props.id}
               title={props.title}
               posterPath={props.poster_path}
               year={props.release_date}
@@ -64,9 +65,7 @@ const Movie = (props: any) => {
             </Link>
             <div className="flex items-center justify-center gap-10">
               <h2 className="font-bold">Rating:</h2>
-              <span className="flex h-20 w-20 items-center justify-center rounded-full bg-accent font-bold">
-                {Math.floor(props.vote_average)}/10
-              </span>
+              <span className="flex h-20 w-20 items-center justify-center rounded-full bg-accent font-bold">{Math.floor(props.vote_average)}/10</span>
             </div>
             <div>
               <h2 className="py-5 text-2xl font-bold">Overview</h2>
