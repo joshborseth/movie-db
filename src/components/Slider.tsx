@@ -5,20 +5,19 @@ import Heart from "./Heart";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { trpc } from "../utils/trpc";
 type sliderProps = {
   category: string;
 };
 export const fetchMovies = async (param: string) => {
-  const res = await fetch(
-    `https://api.themoviedb.org/3/movie/${param}?api_key=b474f43311f1a19783cd84ac384af0e8`
-  );
+  const res = await fetch(`https://api.themoviedb.org/3/movie/${param}?api_key=b474f43311f1a19783cd84ac384af0e8`);
   return res.json();
 };
 const Slider = (props: sliderProps) => {
-  const { data, isLoading, error } = useQuery([props.category], () =>
-    fetchMovies(props.category)
-  );
+  const { data, isLoading, error } = useQuery([props.category], () => fetchMovies(props.category));
   const [slideCount, setSlideCount] = useState<number>(0);
+  const session = trpc.useQuery(["auth.getSession"]);
+  const likerId = session.data?.user?.id;
   useEffect(() => {
     const updateMedia = () => {
       setSlideCount(1);
@@ -41,31 +40,26 @@ const Slider = (props: sliderProps) => {
   }, []);
   return (
     <div className="mx-auto bg-primary p-5">
-      <Swiper
-        spaceBetween={0}
-        slidesPerView={slideCount}
-        loop={true}
-        className="w-2/3"
-      >
+      <Swiper spaceBetween={0} slidesPerView={slideCount} loop={true} className="w-2/3">
         {data &&
           data.results.map((movie: any, index: number) => (
-            <SwiperSlide
-              key={movie.id}
-              className="flex items-center justify-center p-5"
-            >
+            <SwiperSlide key={movie.id} className="flex items-center justify-center p-5">
               <div className="relative flex w-auto items-center justify-center">
                 <div className="absolute left-0 right-0 top-0 bottom-0 z-20 h-full w-full bg-black bg-opacity-0 p-3 text-secondary opacity-0 transition-all hover:bg-opacity-75 hover:opacity-100">
-                  <h3 className="text-md my-1 font-bold">
-                    {movie.title.length > 20
-                      ? movie.title.slice(0, 20) + "..."
-                      : movie.title}
-                  </h3>
+                  <h3 className="text-md my-1 font-bold">{movie.title.length > 20 ? movie.title.slice(0, 20) + "..." : movie.title}</h3>
                   <h4 className="my-1 text-sm">({movie.release_date})</h4>
-                  <p className="text-2xs md:text-xs">
-                    {movie.overview.slice(0, 100)}...
-                  </p>
+                  <p className="text-2xs md:text-xs">{movie.overview.slice(0, 100)}...</p>
                 </div>
-                <Heart />
+                {likerId && (
+                  <Heart
+                    id={movie.id}
+                    title={movie.title}
+                    posterPath={movie.poster_path}
+                    year={movie.release_date}
+                    overview={movie.overview}
+                    likerId={likerId}
+                  />
+                )}
                 <div className="flex w-full items-center justify-center">
                   <Image
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -89,12 +83,7 @@ const Slider = (props: sliderProps) => {
           ))}
         {isLoading && (
           <div className="flex items-center justify-center">
-            <Image
-              src="/rings.svg"
-              alt="loading icon"
-              width={200}
-              height={200}
-            />
+            <Image src="/rings.svg" alt="loading icon" width={200} height={200} />
           </div>
         )}
         {error && (

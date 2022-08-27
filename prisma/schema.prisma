@@ -57,6 +57,7 @@ model Movie {
   posterPath String?
   overview   String?
   year       String?
+  title      String?
 }
 
 model VerificationToken {

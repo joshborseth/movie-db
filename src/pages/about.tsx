@@ -1,11 +1,8 @@
 import { NextPage } from "next";
 import Link from "next/link";
 import Header from "../components/Header";
-import { trpc } from "../utils/trpc";
 
 const about: NextPage = () => {
-  const liked = trpc.useQuery(["auth.getUserLikedMovies"]);
-  console.log(liked);
   return (
     <div className="h-screen bg-primary">
       <header>

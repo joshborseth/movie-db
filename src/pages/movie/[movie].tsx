@@ -22,7 +22,13 @@ const Movie = (props: any) => {
         <h2 className="text-xl">({props.release_date})</h2>
         <div className="flex flex-col items-center px-5 md:flex-row-reverse md:items-start md:justify-center">
           <div className="relative mt-8 w-1/2 select-none md:w-1/3">
-            <Heart />
+            <Heart
+              movieId={props.id}
+              title={props.title}
+              posterPath={props.poster_path}
+              year={props.release_date}
+              overview={props.overview}
+            />
             <Image
               src={`https://image.tmdb.org/t/p/w500${props.poster_path}`}
               alt="movie poster"

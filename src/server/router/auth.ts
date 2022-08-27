@@ -1,4 +1,5 @@
 import { TRPCError } from "@trpc/server";
+import { createLikedMovieSchema } from "../../schema/movie.schema";
 import { createRouter } from "./context";
 
 export const authRouter = createRouter()
@@ -22,5 +23,16 @@ export const authRouter = createRouter()
           likerId: ctx.session?.user?.id,
         },
       });
+    },
+  })
+  .mutation("createLikedMovie", {
+    input: createLikedMovieSchema,
+    async resolve({ ctx, input }) {
+      const movie = await ctx.prisma.movie.create({
+        data: {
+          ...input,
+        },
+      });
+      return movie;
     },
   });
