@@ -1,7 +1,9 @@
 import { getProviders, signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 import Header from "../components/Header";
 
-const login = ({ providers }: any) => {
+const Login = ({ providers }: any) => {
+  const router = useRouter();
   return (
     <div className="h-screen w-screen bg-primary">
       <header>
@@ -10,14 +12,8 @@ const login = ({ providers }: any) => {
       <main className="flex h-1/2 flex-col items-center justify-center gap-10">
         <h1 className="text-center text-5xl text-secondary">Login</h1>
         {Object.values(providers).map((provider: any) => (
-          <div
-            key={provider.id}
-            className="mx-auto w-1/2 bg-neutral text-center"
-          >
-            <button
-              className="btn btn-accent h-full w-full"
-              onClick={() => signIn(provider.id, { callbackUrl: "/" })}
-            >
+          <div key={provider.id} className="mx-auto w-1/2 bg-neutral text-center">
+            <button className="btn btn-accent h-full w-full" onClick={() => signIn(provider.id, { callbackUrl: "/" })}>
               Login with {provider.name}
             </button>
           </div>
@@ -27,7 +23,7 @@ const login = ({ providers }: any) => {
   );
 };
 
-export default login;
+export default Login;
 
 export async function getServerSideProps() {
   const providers = await getProviders();
