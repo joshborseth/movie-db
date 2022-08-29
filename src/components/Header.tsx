@@ -24,19 +24,19 @@ const Header = () => {
       </Link>
       {isOpen && (
         <ul className="absolute top-28 left-0 right-0 z-50 flex w-full flex-col bg-secondary text-center md:static md:w-auto md:flex-row">
-          <li className="h-full w-full text-center hover:bg-base-100 md:w-auto md:hover:bg-secondary">
+          <li className="h-full w-full text-center md:w-auto">
             <Link href="/">
-              <a className="p-4">Home</a>
+              <a className="block h-full w-full p-4 hover:bg-base-100 md:hover:bg-secondary">Home</a>
             </Link>
           </li>
-          <li className="h-full w-full before:text-center hover:bg-base-100 md:w-auto md:hover:bg-secondary">
+          <li className="h-full w-full text-center md:w-auto">
             <Link href="/about">
-              <a className="p-4">About</a>
+              <a className="block h-full w-full p-4 hover:bg-base-100 md:hover:bg-secondary">About</a>
             </Link>
           </li>
-          <li className="h-full w-full before:text-center hover:bg-base-100 md:w-auto md:hover:bg-secondary">
+          <li className="h-full w-full text-center md:w-auto">
             <Link href="/favourites">
-              <a className="p-4">Favourites</a>
+              <a className="block h-full w-full p-4 hover:bg-base-100 md:hover:bg-secondary">Favourites</a>
             </Link>
           </li>
         </ul>

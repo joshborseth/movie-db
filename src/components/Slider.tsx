@@ -82,7 +82,7 @@ const Slider = (props: sliderProps) => {
                 </div>
                 <button className="absolute bottom-0 left-0 right-0 z-50 h-10 w-full rounded-none bg-accent text-secondary transition-colors hover:bg-neutral">
                   <Link href={`/movie/${movie.id}`}>
-                    <a>See More</a>
+                    <a className="flex h-full w-full flex-col items-center justify-center">See More</a>
                   </Link>
                 </button>
               </div>
