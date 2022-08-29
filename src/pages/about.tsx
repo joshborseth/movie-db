@@ -17,7 +17,7 @@ const about: NextPage = () => {
           <div>
             <div className="text-center">
               <div className="max-w-md">
-                <h1 className="text-5xl font-bold">About The Creator</h1>
+                <h1 className="text-5xl font-bold">About</h1>
                 <p className="py-6">
                   I am Joshua Borseth and I am currently a student at BCIT. I have a passion for all things web dev. This is an example of a school project I
                   made using the T3 Stack and the TMDB API.

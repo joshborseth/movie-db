@@ -25,14 +25,14 @@ const Favourites = () => {
         </header>
         <main>
           <h1 className="py-32 text-center text-5xl font-bold">Favourites</h1>
-          <div className="mx-auto grid w-2/3 grid-cols-1 place-items-start gap-20 lg:grid-cols-2 xl:grid-cols-3">
+          <div className="mx-auto grid w-3/4 grid-cols-1 place-items-start gap-20 lg:grid-cols-2 xl:grid-cols-3">
             {data &&
               data.length > 0 &&
               data.map((movie) => (
-                <div className="flex flex-col items-center justify-center gap-5 pb-20 text-center" key={movie.id}>
-                  <h2 className="text-2xl">{movie.title}</h2>
+                <div className="flex flex-col items-center justify-center pb-20 text-center" key={movie.id}>
+                  <h2 className="h-24 text-2xl">{movie.title}</h2>
                   <h3 className="text-xl">({movie.year})</h3>
-                  <div className="relative mt-2 w-48">
+                  <div className="relative my-10 w-48">
                     <Image
                       src={`https://image.tmdb.org/t/p/w500${movie.posterPath}`}
                       alt="movie poster"
@@ -60,7 +60,7 @@ const Favourites = () => {
                   <Link href={`/movie/${movie.id}`}>
                     <a className="btn btn-accent">See More</a>
                   </Link>
-                  <p>{movie.overview}</p>{" "}
+                  <p className="mt-10 h-48">{movie.overview.length > 60 ? `${movie.overview.slice(0, 200)}...` : movie.overview}</p>
                   <div className="flex items-center justify-center gap-10">
                     <h2 className="font-bold">Rating:</h2>
                     <span className="flex h-20 w-20 items-center justify-center rounded-full bg-accent font-bold">{Math.floor(movie.rating)}/10</span>
