@@ -3,7 +3,8 @@ import GithubProvider from "next-auth/providers/github";
 // Prisma adapter for NextAuth, optional and can be removed
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "../../../server/db/client";
-if (!process.env.GITHUB_ID || !process.env.GITHUB_SECRET) throw new Error("env variables not defined");
+if (!process.env.GITHUB_ID || !process.env.GITHUB_SECRET)
+  throw new Error("env variables not defined");
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
@@ -37,7 +38,6 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
-  secret: process.env.NEXTAUTH_SECRET,
 };
 
 export default NextAuth(authOptions);
