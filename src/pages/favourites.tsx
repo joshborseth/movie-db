@@ -60,7 +60,7 @@ const Favourites = () => {
                   <Link href={`/movie/${movie.id}`}>
                     <a className="btn btn-accent">See More</a>
                   </Link>
-                  <p className="mt-10 h-48">{movie.overview.length > 60 ? `${movie.overview.slice(0, 200)}...` : movie.overview}</p>
+                  <p className="mt-10 h-48">{movie.overview.length > 200 ? `${movie.overview.slice(0, 200)}...` : movie.overview}</p>
                   <div className="flex items-center justify-center gap-10">
                     <h2 className="font-bold">Rating:</h2>
                     <span className="flex h-20 w-20 items-center justify-center rounded-full bg-accent font-bold">{Math.floor(movie.rating)}/10</span>
