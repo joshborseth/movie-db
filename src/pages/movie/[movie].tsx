@@ -22,7 +22,7 @@ const Movie = (props: any) => {
   return (
     <>
       <Head>
-        <title>JB Movies | {props.title}</title>
+        <title>{`JB Movies | ${props.title}`}</title>
       </Head>
       <div className="bg-primary text-secondary">
         <header>
