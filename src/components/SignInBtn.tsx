@@ -8,31 +8,16 @@ const SignInBtn = () => {
   return (
     <div className="inline-block text-center">
       {!session.data && (
-        <button
-          className="btn btn-primary border-secondary"
-          onClick={() => signIn()}
-        >
+        <button className="btn btn-primary border-secondary" onClick={() => signIn()}>
           Sign In
         </button>
       )}
       {session.data?.user?.image && (
-        <div
-          className="dropdown-hover dropdown flex items-center justify-center gap-5"
-          onClick={() => signOut()}
-        >
+        <div className="dropdown flex items-center justify-center gap-5">
           <label tabIndex={0}>
-            <Image
-              src={session.data.user?.image}
-              alt="user image"
-              width={75}
-              height={75}
-              className="cursor-pointer rounded-full"
-            />
+            <Image src={session.data.user?.image} alt="user image" width={75} height={75} className="cursor-pointer rounded-full" />
           </label>
-          <ul
-            tabIndex={0}
-            className="btn dropdown-content btn-secondary mt-28 text-error"
-          >
+          <ul onClick={() => signOut()} tabIndex={0} className="btn dropdown-content btn-secondary mt-28 text-error">
             <li>Sign Out</li>
           </ul>
         </div>
