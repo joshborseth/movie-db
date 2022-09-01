@@ -42,7 +42,6 @@ const Movie = (props: any) => {
                   year={props.release_date}
                   overview={props.overview}
                   isLiked={likedMovies?.includes(props.id) ? true : false}
-                  rating={props.vote_average}
                 />
               )}
 
