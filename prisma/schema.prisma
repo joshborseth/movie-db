@@ -58,7 +58,6 @@ model Movie {
   overview   String @db.VarChar(1000)
   year       String
   title      String
-  rating     Float
   idOfLike   String @id @default(cuid())
 
   @@unique([likerId, id], name: "idToDelete")
