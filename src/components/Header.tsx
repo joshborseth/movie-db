@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const Header = ({ setIsSubHeaderOpen }: { setIsSubHeaderOpen: Function }) => {
+const Header = ({ setIsSubHeaderOpen }: { setIsSubHeaderOpen?: Function }) => {
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     const updateMedia = () => {
@@ -51,7 +51,7 @@ const Header = ({ setIsSubHeaderOpen }: { setIsSubHeaderOpen: Function }) => {
         viewBox="0 0 512 512"
         onClick={() => {
           setIsOpen(!isOpen);
-          setIsSubHeaderOpen(false);
+          setIsSubHeaderOpen && setIsSubHeaderOpen(false);
         }}
       >
         <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
