@@ -31,7 +31,7 @@ const SubHeader = (props: subHeaderPropTypes) => {
           <li
             onClick={() => {
               props.setCategory("top_rated");
-              setIsOpen(false);
+              window.innerWidth < 768 && setIsOpen(false);
             }}
             className="flex h-full w-full cursor-pointer items-center justify-center p-2 text-center hover:bg-neutral md:w-auto md:p-5"
           >
@@ -40,7 +40,7 @@ const SubHeader = (props: subHeaderPropTypes) => {
           <li
             onClick={() => {
               props.setCategory("popular");
-              setIsOpen(false);
+              window.innerWidth < 768 && setIsOpen(false);
             }}
             className="flex h-full w-full cursor-pointer items-center justify-center p-2 text-center hover:bg-neutral md:w-auto md:p-5"
           >
@@ -49,7 +49,7 @@ const SubHeader = (props: subHeaderPropTypes) => {
           <li
             onClick={() => {
               props.setCategory("now_playing");
-              setIsOpen(false);
+              window.innerWidth < 768 && setIsOpen(false);
             }}
             className="flex h-full w-full cursor-pointer items-center justify-center p-2 text-center hover:bg-neutral md:w-auto md:p-5"
           >
@@ -58,7 +58,7 @@ const SubHeader = (props: subHeaderPropTypes) => {
           <li
             onClick={() => {
               props.setCategory("upcoming");
-              setIsOpen(false);
+              window.innerWidth < 768 && setIsOpen(false);
             }}
             className="flex h-full w-full cursor-pointer items-center justify-center p-2 text-center hover:bg-neutral md:w-auto md:p-5"
           >
