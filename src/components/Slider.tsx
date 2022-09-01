@@ -62,7 +62,6 @@ const Slider = (props: sliderProps) => {
                     posterPath={movie.poster_path}
                     year={movie.release_date}
                     overview={movie.overview}
-                    rating={movie.vote_average}
                     likerId={likerId}
                     isLiked={likedMovies?.includes(movie.id) ? true : false}
                   />
