@@ -16,7 +16,7 @@ const Home: NextPage = () => {
       <div className="h-full w-full bg-primary">
         <header>
           <Header setIsSubHeaderOpen={setIsSubHeaderOpen} />
-          <SubHeader isSubHeaderOpen={isSubHeaderOpen} setIsSubHeaderOpen={setIsSubHeaderOpen} setCategory={(category: string) => setCategory(category)} />
+          <SubHeader isSubHeaderOpen={isSubHeaderOpen} setIsSubHeaderOpen={setIsSubHeaderOpen} setCategory={setCategory} />
         </header>
         <main>
           <h1 className="my-8 text-center text-5xl font-bold capitalize text-secondary">{category.includes("_") ? category.replace("_", " ") : category}</h1>
