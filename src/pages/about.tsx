@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 import Header from "../components/Header";
 
@@ -22,11 +23,19 @@ const about: NextPage = () => {
                   I am Joshua Borseth and I am currently a student at BCIT. I have a passion for all things web dev. This is an example of a school project I
                   made using the T3 Stack and the TMDB API.
                 </p>
-                <button className="btn btn-accent">
+                <button className="btn btn-accent mx-2">
                   <Link href="https://github.com/t3-oss/create-t3-app">
                     <a>T3 Stack</a>
                   </Link>
                 </button>
+                <button className="btn btn-secondary mx-2">
+                  <Link href="https://www.themoviedb.org/">
+                    <a>TMDB</a>
+                  </Link>
+                </button>
+                <div className="relative my-10 h-20">
+                  <Image src="/tmdb.svg" alt="TMDB Logo" layout="fill" />
+                </div>
               </div>
             </div>
           </div>
