@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 type subHeaderPropTypes = {
   setCategory: Function;
@@ -23,10 +23,18 @@ const SubHeader = (props: subHeaderPropTypes) => {
   }, [setIsOpen]);
   return (
     <nav className="relative flex h-20 flex-col items-center justify-center bg-accent font-bold text-secondary">
-      <div className="flex h-full w-full cursor-pointer items-center justify-center text-center md:hidden" onClick={() => setIsOpen(!isOpen)}>
-        Categories
+      <div className="flex h-full w-full items-center justify-center text-center md:hidden">
+        {isOpen ? (
+          <button className="btn btn-square w-1/2 text-2xl" onClick={() => setIsOpen(false)}>
+            X
+          </button>
+        ) : (
+          <button className="btn btn-square w-1/2" onClick={() => setIsOpen(true)}>
+            Categories
+          </button>
+        )}
       </div>
-      {props.isSubHeaderOpen && (
+      {isOpen && (
         <ul className="absolute top-20 z-40 flex h-56 w-full flex-col items-center justify-center bg-accent md:static md:flex-row">
           <li
             onClick={() => {
