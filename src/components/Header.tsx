@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Search from "./Search";
 
 const Header = ({ setIsSubHeaderOpen }: { setIsSubHeaderOpen?: Function }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   useEffect(() => {
     const updateMedia = () => {
       if (window.innerWidth >= 768) {
@@ -63,6 +64,7 @@ const Header = ({ setIsSubHeaderOpen }: { setIsSubHeaderOpen?: Function }) => {
           </svg>
         )}
       </div>
+      <Search />
     </nav>
   );
 };
