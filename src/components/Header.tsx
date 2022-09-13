@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Search from "./Search";
 
 const Header = ({ setIsSubHeaderOpen }: { setIsSubHeaderOpen?: Function }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -43,28 +42,20 @@ const Header = ({ setIsSubHeaderOpen }: { setIsSubHeaderOpen?: Function }) => {
           </li>
         </ul>
       )}
-      <div className="flex h-10 w-10 items-center justify-center md:hidden">
-        {isOpen ? (
-          <button className="text-3xl" onClick={() => setIsOpen(false)}>
-            X
-          </button>
-        ) : (
-          <svg
-            className="swap-off cursor-pointer fill-current"
-            xmlns="http://www.w3.org/2000/svg"
-            width="42"
-            height="42"
-            viewBox="0 0 512 512"
-            onClick={() => {
-              setIsOpen(true);
-              setIsSubHeaderOpen && setIsSubHeaderOpen(false);
-            }}
-          >
-            <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
-          </svg>
-        )}
-      </div>
-      <Search />
+
+      <svg
+        className="swap-off cursor-pointer fill-current md:hidden"
+        xmlns="http://www.w3.org/2000/svg"
+        width="42"
+        height="42"
+        viewBox="0 0 512 512"
+        onClick={() => {
+          setIsOpen(!isOpen);
+          setIsSubHeaderOpen && setIsSubHeaderOpen(false);
+        }}
+      >
+        <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
+      </svg>
     </nav>
   );
 };
