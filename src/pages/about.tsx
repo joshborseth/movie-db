@@ -28,6 +28,9 @@ const about: NextPage = () => {
                     <a>T3 Stack</a>
                   </Link>
                 </button>
+                <p className="py-6">
+                This product uses the TMDb API but is not endorsed or certified by TMDb.
+                </p>
                 <button className="btn btn-secondary mx-2">
                   <Link href="https://www.themoviedb.org/">
                     <a>TMDB</a>
